@@ -3,10 +3,7 @@ package com.foodlab.foodReservation.store.controller;
 
 import com.foodlab.foodReservation.store.dto.request.CreateStoreRequest;
 import com.foodlab.foodReservation.store.dto.request.UpdateStoreRequest;
-import com.foodlab.foodReservation.store.dto.response.CreateStoreResponse;
-import com.foodlab.foodReservation.store.dto.response.DeleteStoreResponse;
-import com.foodlab.foodReservation.store.dto.response.StoreListResponse;
-import com.foodlab.foodReservation.store.dto.response.UpdateStoreResponse;
+import com.foodlab.foodReservation.store.dto.response.*;
 import com.foodlab.foodReservation.store.service.StoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -44,6 +41,11 @@ public class StoreController {
     @GetMapping("/stores")
     public Page<StoreListResponse> stores(@PageableDefault(page = 0, size = 10) Pageable pageable) {
         return storeService.getStores(pageable);
+    }
+
+    @GetMapping("/store/{storeId}")
+    public Page<StoreDetailWithItemsResponse> storeWithItems(@PathVariable Long storeId, @PageableDefault Pageable pageable) {
+        return storeService.getStoreWithItems(storeId, pageable);
     }
 
 }
